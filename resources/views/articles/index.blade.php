@@ -5,7 +5,7 @@
     @foreach ($articles as $article)
         <article>
             <h2>
-                <a href="{{ action(['App\Http\Controllers\ArticlesController', 'show'], [$article->id]) }}">
+                <a href="{{ route('articles.show', $article->id) }}">
                     {{ $article->title }}
                 </a>
             </h2>
