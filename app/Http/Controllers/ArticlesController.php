@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Tag;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Support\Facades\Auth;
+
 
 class ArticlesController extends Controller
 {
@@ -15,34 +17,48 @@ class ArticlesController extends Controller
 
     public function index()
     {
-        //return Auth::user();
         return view('articles.index', ['articles' => Article::latest('published_at')->published()->get()]);
     }
 
-    public function show($id)
+    public function show(Article $article)
     {
-        return view('articles.show', ['article' => Article::findOrFail($id)]);
+        return view('articles.show', compact('article'));
     }
 
     public function create()
     {
-        return view('articles.create');
+        return view('articles.create', ['tags' => Tag::pluck('name', 'id')]);
     }
 
-    public function edit($id)
+    public function edit(Article $article)
     {
-        return view('articles.edit', ['article' => Article::findOrFail($id)]);
+        $tags = Tag::pluck('name', 'id');
+        return view('articles.edit', compact('article', 'tags'));
     }
 
     public function store(ArticleRequest $request)
     {
-        Auth::user()->articles()->save(new Article($request->input()));
+        $this->createArticle($request);
+        flash()->success('Your article has been created');
         return redirect('articles');
     }
 
-    public function update($id, ArticleRequest $request)
+    public function update(Article $article, ArticleRequest $request)
     {
-        Article::findOrFail($id)->update($request->input());
+        $article->update($request->input());
+        $article->tags()->sync($request->input('tags'));
         return redirect('articles');
+    }
+
+    private function syncTags(Article $article, array $tags)
+    {
+        $article->tags()->sync($tags);
+    }
+
+    private function createArticle(ArticleRequest $request)
+    {
+        $article = Auth::user()->articles()->save(new Article($request->input()));
+        $this->syncTags($article, $request->input('tags'));
+        return $article;
     }
 }
