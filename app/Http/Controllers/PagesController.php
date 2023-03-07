@@ -3,16 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PagesController extends Controller
 {
-    public function about()
+    /**
+     * Show page about
+     *
+     * @return View
+     */
+    public function about(): View
     {
-        $people = ['Taylor Otwell', 'Dayle Rees', 'Eric Barnes'];
-        return view('pages.about', compact('people'));
+        return view('pages.about')->with('people', ['Taylor Otwell', 'Dayle Rees', 'Eric Barnes']);
     }
 
-    public function contact()
+    /**
+     * Show page contact
+     *
+     * @return View
+     */
+    public function contact(): View
     {
         return view('pages.contact');
     }

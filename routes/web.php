@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\TagsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,15 +25,25 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// Route::name('profile.')->middleware('auth')->controller(ProfileController::class)->group(function () {
+//     Route::get('/profile', 'edit')->name('edit');
+//     Route::patch('/profile', 'update')->name('update');
+//     Route::delete('/profile', 'destroy')->name('destroy');
+// });
+
+Route::resource('profile', ProfileController::class)->only([
+    'edit', 'update', 'destroy'
+])->middleware('auth');
+
+Route::controller(PagesController::class)->group(function () {
+    Route::get('/contact', 'contact');
+    Route::get('/about', 'about');
 });
 
-Route::get('/contact', [PagesController::class, 'contact']);
-Route::get('/about', [PagesController::class, 'about']);
+Route::get('tags/{tags}', [TagsController::class, 'show']);
 
-Route::resource('/articles', ArticlesController::class);
+Route::resource('/articles', ArticlesController::class)->except('index')->middleware('auth');
+
+Route::get('/articles', [ArticlesController::class, 'index']);
 
 require __DIR__ . '/auth.php';

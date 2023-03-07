@@ -19,9 +19,9 @@ mix.js('resources/js/app.js', 'public/js')
         'resources/css/libs/bootstrap.min.css',
         'resources/css/app.css',
         'resources/css/libs/select2.min.css'
-    ], 'public/css/app.css')
+    ], 'public/css/output.css')
     .scripts([
         'resources/js/libs/jquery-3.6.3.min.js',
         'resources/js/libs/bootstrap.bundle.min.js',
         'resources/js/libs/select2.min.js'
-    ], 'public/js/app.js');
+    ], 'public/js/output.js');

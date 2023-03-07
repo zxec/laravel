@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/output.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -15,7 +15,7 @@
         @include('flash::message')
         @yield('content')
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/output.js') }}"></script>
     <script>
         $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
     </script>

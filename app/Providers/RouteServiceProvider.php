@@ -47,11 +47,6 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
-
-            //Route::model('articles', 'App\Models\Article');
-            Route::model('articles', function ($id) {
-                return \App\Models\Article::published()->findOrFail($id);
-            });
         });
     }
 

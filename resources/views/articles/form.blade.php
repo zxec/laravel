@@ -22,8 +22,9 @@
         @foreach ($tags as $key => $tag)
             <option value="{{ $key }}"
                 @isset($article)
-                @foreach ($article->tags as $articleTag)
-                {{ $articleTag->id === $key ? ' selected' : '' }} @endforeach
+                    @foreach ($article->tags as $articleTag)
+                        {{ $articleTag->id === $key ? ' selected' : '' }}
+                    @endforeach
                 @endisset>
                 {{ $tag }}</option>
         @endforeach
