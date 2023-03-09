@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Tag;
 
 class TagsController extends Controller
 {
     /**
-     * Show a single tag
+     * Show a single tag.
      *
      * @param Tag $tag
      * @return View

@@ -22,11 +22,10 @@
         @foreach ($tags as $key => $tag)
             <option value="{{ $key }}"
                 @isset($article)
-                    @foreach ($article->tags as $articleTag)
-                        {{ $articleTag->id === $key ? ' selected' : '' }}
-                    @endforeach
+                    {{ $article->tags->contains($key) ? ' selected' : '' }}
                 @endisset>
-                {{ $tag }}</option>
+                {{ $tag }}
+            </option>
         @endforeach
     </select>
 </div>

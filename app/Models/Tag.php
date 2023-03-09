@@ -13,7 +13,7 @@ class Tag extends Model
     protected $fillable = ['name'];
 
     /**
-     * Get the articles associated with the given tag
+     * Get the articles associated with the given tag.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

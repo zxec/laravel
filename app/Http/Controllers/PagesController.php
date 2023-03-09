@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PagesController extends Controller
 {
     /**
-     * Show page about
+     * Show page about.
      *
      * @return View
      */
@@ -18,7 +17,7 @@ class PagesController extends Controller
     }
 
     /**
-     * Show page contact
+     * Show page contact.
      *
      * @return View
      */

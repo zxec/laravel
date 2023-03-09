@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Tag;
 use App\Http\Requests\ArticleRequest;
+use App\Services\ArticleService;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class ArticlesController extends Controller
 {
+
+    public ArticleService $service;
+
+    public function __construct(ArticleService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
-     * Show all articles
+     * Show all articles.
      *
      * @return View
      */
@@ -23,7 +30,7 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Show a single articles
+     * Show a single articles.
      *
      * @param Article $article
      * @return View
@@ -59,15 +66,15 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Save a new article
+     * Save a new article.
      *
      * @param ArticleRequest $request
      * @return RedirectResponse
      */
     public function store(ArticleRequest $request): RedirectResponse
     {
-        $this->createArticle($request->validated());
-        flash()->success('Your article has been created');
+        $this->service->store($request->validated());
+        $this->service->flashSuccess('Your article has been created');
         return redirect('articles');
     }
 
@@ -80,22 +87,7 @@ class ArticlesController extends Controller
      */
     public function update(Article $article, ArticleRequest $request): RedirectResponse
     {
-        $request = $request->validated();
-        $article->update($request);
-        $article->tags()->sync($request['tags']);
+        $this->service->update($article, $request->validated());
         return redirect('articles');
-    }
-
-    /**
-     * Create a new article.
-     *
-     * @param $request
-     * @return Article
-     */
-    private function createArticle($request): Article
-    {
-        $article = Auth::user()->articles()->create($request);
-        $article->tags()->sync($request['tags']);
-        return $article;
     }
 }

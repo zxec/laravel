@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ContactController extends Controller
 {
     /**
-     * Show all contacts
+     * Show all contacts.
      *
      * @return View
      */

@@ -22,7 +22,7 @@ class Article extends Model
     protected $dates = ['published_at'];
 
     /**
-     * Scope queries to atricles that have been published
+     * Scope queries to atricles that have been published.
      *
      * @param Builder $query
      * @return void
@@ -33,7 +33,7 @@ class Article extends Model
     }
 
     /**
-     * Scope queries to atricles that have been unpublished
+     * Scope queries to atricles that have been unpublished.
      *
      * @param Builder $query
      * @return void
@@ -43,7 +43,7 @@ class Article extends Model
         $query->where('published_at', '>', Carbon::now());
     }
     /**
-     * Get and set the published_at attribute
+     * Get and set the published_at attribute.
      *
      * @return Attribute
      */
@@ -56,7 +56,7 @@ class Article extends Model
     }
 
     /**
-     * An article is owned by user
+     * An article is owned by user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -66,7 +66,7 @@ class Article extends Model
     }
 
     /**
-     * An tags is owned by articles
+     * An tags is owned by articles.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
